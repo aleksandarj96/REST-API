@@ -1,0 +1,20 @@
+const express = require('express')
+
+module.exports = function ({ usersManager }) {
+    const router = express.Router()
+
+    router.use(express.urlencoded({ extended: false }))
+
+        router.get("/users", function (req, res) {
+            usersManager.getAllUsers(function (errors, users) {
+                const model = {
+                    errors: errors,
+                    users: users
+                }
+                res.render(model)
+            })
+            
+        })
+
+    return router
+}

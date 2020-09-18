@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "scripts": {   
+  "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node_modules/.bin/nodemon app.js --exec babel-node --"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "awilix": "^4.2.6",
     "express": "^4.17.1"
   },
   "devDependencies": {
