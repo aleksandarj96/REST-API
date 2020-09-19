@@ -6,7 +6,7 @@ module.exports = function ({ usersManager }) {
     router.get("/users", function (req, res) {
         usersManager.getAllUsers(function (errors, users) {
             if (errors) {
-                res.status(400).end()
+                res.status(400).json(errors)
                 return
             } else {
                 res.status(201).json(users)
@@ -15,16 +15,58 @@ module.exports = function ({ usersManager }) {
         })
     }),
 
-    router.get("/users/:id", function (req, res){
-        usersManager.getUserWithId(function (errors, user){
-            if(errors){
-                res.status(400).end()
-                return
-            }else{
-                res.status(201).json(user)
-                return
-            }
+        router.get("/users/usernames/:username", function (req, res) {
+            const username = req.params.username
+            usersManager.getUserByUsername(username, function (errors, user) {
+                if (errors) {
+                    res.status(404).json(errors)
+                    return
+                } else {
+                    res.status(201).json(user)
+                    return
+                }
+            })
+        }),
+
+        router.get("/users/:id", function (req, res) {
+            const id = req.params.id
+            usersManager.getUserWithId(id, function (errors, user) {
+                if (errors) {
+                    res.status(404).json(errors)
+                    return
+                } else {
+                    res.status(201).json(user)
+                    return
+                }
+            })
+        }),
+
+        router.post("/users", function (req, res) {
+            const username = req.body.username
+            const password = req.body.password
+            usersManager.createUser(username, password, function (errors, newUser) {
+                if (errors) {
+                    res.status(404).json(errors)
+                    return
+                } else {
+                    res.status(201).json(newUser)
+                    return
+                }
+            })
+        }),
+
+        router.delete("/users/usernames/:username", function (req, res) {
+            const username = req.params.username
+            usersManager.deleteUser(username, function (errors, deletedUser) {
+                if (errors) {
+                    res.status(404).json(errors)
+                    return
+                } else {
+                    res.status(201).json("deleted user: " + deletedUser.username)
+                    return
+                }
+            })
         })
-    })
+
     return router
 }
