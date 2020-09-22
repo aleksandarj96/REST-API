@@ -13,6 +13,11 @@ const apiEntryRouter = require('./src/PL/routers/API/entry-router')
 const entryManager = require('./src/BLL/entry-manager')
 const entryRepository = require('./src/DAL/entry-repository')
 
+//comments
+const apiCommentRouter = require('./src/PL/routers/API/comment-router')
+const commentManager = require('./src/BLL/comment-manager')
+const commentRepository = require('./src/DAL/comment-repository')
+
 const container = awilix.createContainer()
 //users
 container.register('apiUsersRouter', awilix.asFunction(apiUsersRouter))
@@ -24,15 +29,22 @@ container.register('apiEntryRouter', awilix.asFunction(apiEntryRouter))
 container.register('entryManager', awilix.asFunction(entryManager))
 container.register('entryRepository', awilix.asFunction(entryRepository))
 
+//comments
+container.register('apiCommentRouter', awilix.asFunction(apiCommentRouter))
+container.register('commentManager', awilix.asFunction(commentManager))
+container.register('commentRepository', awilix.asFunction(commentRepository))
+
 //routers
 const theAPIUsersRouter = container.resolve('apiUsersRouter')
 const theAPIEntryRouter = container.resolve('apiEntryRouter')
+const theAPICommentRouter = container.resolve('apiCommentRouter')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use("/", theAPIUsersRouter)
 app.use("/", theAPIEntryRouter)
+app.use("/", theAPICommentRouter)
 
 app.get('/', function (req, res) {
     res.send('Hello World')

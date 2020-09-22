@@ -23,6 +23,9 @@ function getEntriesForUserId(userId) {
         if (entry.userId == userId)
             entries.push(entry)
     }
+    if (entries.length <= 0)
+        return null
+
     return entries
 }
 
