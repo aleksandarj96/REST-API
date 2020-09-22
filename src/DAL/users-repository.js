@@ -65,6 +65,11 @@ module.exports = function () {
             }
 
             callback(null, deletedUser)
+        },
+
+        modifyUser: function(callback){
+            //TO DO
+            callback(null, 1)
         }
     }
 }

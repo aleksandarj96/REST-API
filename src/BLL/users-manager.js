@@ -1,5 +1,3 @@
-const usersRepository = require("../DAL/users-repository")
-
 module.exports = function ({ usersRepository }) {
     return {
 
